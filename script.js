@@ -14,7 +14,7 @@ class Deck {
     }
 
     createDeck() {
-        let suits = ['Hearts', 'Spades', 'Clubs', 'Diamonds']
+        let suits = ["♠", "♡", "♢", "♣"]
         let ranks = ['Ace', '2', '3', '4', '5', '6', '7', '8', '9', '10', 'Jack', 'Queen', 'King']
 
         for (let i = 0; i<suits.length; i++) {
@@ -35,6 +35,8 @@ class GameOfWar {
     constructor() { // Split deck in half between the two players.
         this.p1 = []
         this.p2 = []
+        this.hand1 = []
+        this.hand2 = []
         this.init()
         this.battle()
     }
@@ -48,18 +50,37 @@ class GameOfWar {
     }
 
     battle() {
-        let hand1 = []
-        let hand2 = []
-        hand1 = this.p1.shift()
-        hand2 = this.p2.shift()
-        if (hand1.value > hand2.value) {
-            this.p1.push(hand1, hand2)
+        this.hand1 = [this.p1.shift()]
+        this.hand2 = [this.p2.shift()]
+        console.log(this.hand1[0].value)
+        if (this.hand1[0].value > this.hand2[0].value) {
+            this.p1.push(...this.hand1, ...this.hand2)
             console.log("p1 wins!")
-        } else if (hand1.value < hand2.value) {
-            this.p2.push(hand1, hand2)
+        } else if (this.hand1[0].value < this.hand2[0].value) {
+            this.p2.push(...this.hand1, ...this.hand2)
             console.log("p2 wins!")
         } else {
-            console.log("it's a tie")
+            console.log("Go to war!")
+            this.goToWar()
+        }
+    }
+
+    goToWar() {
+        let h1war = this.p1.splice(0, 4)
+        let h2war = this.p2.splice(0, 4)
+        this.hand1.push(...h1war)
+        this.hand2.push(...h2war)
+        let h1L = this.hand1.length
+        let h2L = this.hand2.length
+        if (this.hand1[h1L-1].value > this.hand2[h2L-1].value) {
+            this.p1.push(...this.hand1, ...this.hand2)
+            console.log("p1 wins the war!")
+        } else if (this.hand1[h1L-1].value < this.hand2[h2L-1].value) {
+            this.p2.push(...this.hand1, ...this.hand2)
+            console.log("p2 wins the war!")
+        } else {
+            console.log("Go to war!")
+            this.goToWar()
         }
     }
 }
