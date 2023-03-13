@@ -48,13 +48,15 @@ class GameOfWar {
     }
 
     battle() {
-        let hand1 = this.p1.shift()
-        let hand2 = this.p2.shift()
+        let hand1 = []
+        let hand2 = []
+        hand1 = this.p1.shift()
+        hand2 = this.p2.shift()
         if (hand1.value > hand2.value) {
-            this.p1.push(hand1[0], hand2[0])
+            this.p1.push(hand1, hand2)
             console.log("p1 wins!")
         } else if (hand1.value < hand2.value) {
-            this.p2.push(hand1[0], hand2[0])
+            this.p2.push(hand1, hand2)
             console.log("p2 wins!")
         } else {
             console.log("it's a tie")
@@ -65,3 +67,5 @@ class GameOfWar {
 let game1 = new GameOfWar()
 
 console.log(game1)
+console.log(game1.p1.length)
+console.log(game1.p2.length)
