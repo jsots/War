@@ -14,7 +14,7 @@ class Deck {
 
     createDeck() {
         let suits = ["♠", "♡", "♢", "♣"]
-        let ranks = ['Ace', '2', '3', '4', '5', '6', '7', '8', '9', '10', 'Jack', 'Queen', 'King']
+        let ranks = ['Ace', '2', '3', '4', '5', '6', '7', '8', '9', '10', 'Jack', 'King', 'Queen']
 
         for (let i = 0; i<suits.length; i++) {
             for (let j=0; j<ranks.length; j++) {
@@ -39,6 +39,8 @@ class GameOfWar {
         this.init()
         this.battle()
         this.declareWinner()
+        this.c
+        this.w
     }
 
     init() { // Split the deck in half between the two players
@@ -51,21 +53,26 @@ class GameOfWar {
     }
 
     battle() { // This is what it means to take a turn.
+        this.c = 0
+        this.w = 0
         while (this.p1.length > 0 && this.p2.length > 0) {
             this.hand1 = [this.p1.shift()]
             this.hand2 = [this.p2.shift()]
             if (this.hand1[0].value > this.hand2[0].value) { // p1 wins a round
                 this.p1.push(...this.hand2, ...this.hand1)
-                console.log("P1 wins this round!")
+                this.c ++
+                console.log(`Round ${this.c}: P1's ${this.hand1[0].rank} of ${this.hand1[0].suit} takes P2's ${this.hand2[0].rank} of ${this.hand2[0].suit}`)
                 this.hand1 = []
                 this.hand2 = []
             } else if (this.hand1[0].value < this.hand2[0].value) { // p2 wins a round
                 this.p2.push(...this.hand1, ...this.hand2)
-                console.log("P2 wins this round!")
+                this.c ++
+                console.log(`Round ${this.c}: P2's ${this.hand2[0].rank} of ${this.hand2[0].suit} takes P1's ${this.hand1[0].rank} of ${this.hand1[0].suit}`)
                 this.hand1 = []
                 this.hand2 = []
             } else {
-                console.log("Go to war!") // this starts war!
+                console.log("--------------------Go to war, defend your Queen's honor!--------------------") // this starts war!
+                this.w += 1
                 this.goToWar()
                 this.hand1 = []
                 this.hand2 = []
@@ -82,22 +89,23 @@ class GameOfWar {
         let h2L = this.hand2.length
         if (this.p1.length < 4) {
             this.p1.push(...this.hand2, ...this.hand1)
-            console.log("P1 wins!")
+            console.log(`War ${this.w}: P1 wins! You have honored your Queen.`)
         } else if(this.p2.length < 4) {
             this.p2.push(...this.hand1, ...this.hand2)
-            console.log("P2 wins!")
+            console.log(`War ${this.w}: P2 wins! You have honored your Queen.`)
         } else if (this.hand1[h1L-1].value > this.hand2[h2L-1].value) { // p1 wins the war
             this.p1.push(...this.hand2, ...this.hand1)
-            console.log("P1 wins the war!")
+            console.log(`War ${this.w}: P1 wins the war with ${this.hand1[h1L-1].rank} of ${this.hand1[h1L-1].suit}!`)
             this.hand1 = []
             this.hand2 = []
         } else if (this.hand1[h1L-1].value < this.hand2[h2L-1].value) { // p2 wins the war
             this.p2.push(...this.hand1, ...this.hand2)
-            console.log("P2 wins the war!")
+            console.log(`War ${this.w}: P2 wins the war ${this.hand2[h1L-1].rank} of ${this.hand2[h1L-1].suit}!`)
             this.hand1 = []
             this.hand2 = []
         } else {
-            console.log("Go to war again!") // Go to war again
+            console.log("--------------------Go to war again, fight for your Queen!--------------------") // Go to war again
+            this.w += 1
             this.goToWar()
             this.hand1 = []
             this.hand2 = []
@@ -105,9 +113,9 @@ class GameOfWar {
     }
     declareWinner () {
         if (this.p1.length === 0) {
-            console.log("P2 wins!")
+            console.log(`P2 wins! You have honored your Queen in ${this.c} rounds.`)
         } else if(this.p2.length === 0) {
-            console.log("P1 wins!")
+            console.log(`P1 wins! You have honored your Queen in ${this.c} rounds.`)
         }
     }
 }
