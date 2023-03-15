@@ -112,6 +112,15 @@ class GameOfWar {
         }
     }
     declareWinner () {
+        if (this.w === 0) {
+            console.log('You are a pacifist. The Queen is pleased, and impressed with your commitment to peace.')
+        }
+        if (this.c < 100) {
+            console.log("You are swift with your blade. The Queen nods in approval.")
+        }
+        if (this.c > 1000) {
+            console.log("Devastating bloodshed. A seemingly never ending battle. The war is won, but at what cost?")
+        }
         if (this.p1.length === 0) {
             console.log(`P2 wins! You have honored your Queen in ${this.c} rounds.`)
         } else if(this.p2.length === 0) {

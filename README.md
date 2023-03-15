@@ -1,6 +1,6 @@
 # The Queen's War
 
-> Since the dawn of time, war has prioritized the King and his army. Not this time! The queen's war is an automated version of the classic card game War. In this version, the Ace is low, and the queen is high. You are fighting to defend her queendom and honor. 
+> Since the dawn of time, war has prioritized the King and his army. Not this time! The queen's war is an automated version of the classic card game War. In this version, the Ace is low and the queen is high. You are fighting to defend her queendom and honor. 
 
 
 ## Card Ranks
